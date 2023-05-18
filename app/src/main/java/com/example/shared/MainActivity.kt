@@ -4,6 +4,7 @@ package com.example.shared
 import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -69,7 +70,7 @@ fun MainScreen() {
     Column {
         var text by remember { mutableStateOf(name) }
 
-        Text(text = "Data Store")
+        Text(text = "Shared Preference")
         TextField(
             value = text,
             onValueChange = {
@@ -77,16 +78,21 @@ fun MainScreen() {
                 preferencesManager.saveName(text.toString())
             },
         )
+        val mContext = LocalContext.current
         Button(
+
             onClick = {
-                val storedName = preferencesManager.getName()
+                mToast(mContext,name)
             }
-        ) {
+        ){
             Text("Obtener nombre")
         }
     }
 }
 
 
+private fun mToast(context: Context, name: String){
+    Toast.makeText(context, "Hola, mucho gusto "+name+"!!!", Toast.LENGTH_LONG).show()
+}
 
 
